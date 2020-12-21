@@ -59,5 +59,6 @@ Temporary Items
 # Other (custom)
 
 Problems.md
+*.iml
 
 # End of https://www.toptal.com/developers/gitignore/api/java,macos
