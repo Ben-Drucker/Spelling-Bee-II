@@ -18,24 +18,24 @@ public class TimeElapsed {
     }
 
     public double getTime(String option){
-        if(option == "sec"){
-            prefix_type = "sec";
-            return ((double)ending_time-(double)starting_time)/1000000000;
-        }
-        else if(option == "mili"){
-            prefix_type = "mili";
-            return ((double)ending_time-(double)starting_time)/1000000;
-        }
-        else if(option == "micro"){
-            prefix_type = "micro";
-            return ((double)ending_time-(double)starting_time)/1000;
-        }
-        else if(option == "nano"){
-            prefix_type = "nano";
-            return ending_time-starting_time;
-        }
-        else{
-            throw new RuntimeException("Error! Please specify sec, mili, micro, or nano.");
+        switch (option) {
+            case "sec" -> {
+                prefix_type = "sec";
+                return ((double) ending_time - (double) starting_time) / 1000000000;
+            }
+            case "mili" -> {
+                prefix_type = "mili";
+                return ((double) ending_time - (double) starting_time) / 1000000;
+            }
+            case "micro" -> {
+                prefix_type = "micro";
+                return ((double) ending_time - (double) starting_time) / 1000;
+            }
+            case "nano" -> {
+                prefix_type = "nano";
+                return ending_time - starting_time;
+            }
+            default -> throw new RuntimeException("Error! Please specify sec, mili, micro, or nano.");
         }
     }
 

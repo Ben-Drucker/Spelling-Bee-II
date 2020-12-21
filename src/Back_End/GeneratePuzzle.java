@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class GeneratePuzzle {
-    private int extraSize;
+    private final int extraSize;
     public String req;
-    public ArrayList<String> extra = new ArrayList<String>();
+    public ArrayList<String> extra = new ArrayList<>();
 
     public GeneratePuzzle(String reqq, ArrayList<String> extraa){
         req = reqq;

@@ -4,26 +4,21 @@ import Back_End.Initialize;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-
-import java.net.MulticastSocket;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
 
 public class Controller implements Initializable {
     public static Initialize init;
@@ -118,7 +113,6 @@ public class Controller implements Initializable {
     private int currentLevel = 0;
     ArrayList<String> scrs;
     Image img = new Image("Bee_2.png");
-    private Text[] scoreLabels;
     {
         String hex = "M 0 0 L 1 0 l 0.5 1 l -0.5 1 l -1 0 l -0.5 -1 l 0.5 -1M 0 0 L 1 0 l 0.5 1 l -0.5 1 l -1 0 l -0.5 -1 l 0.5 -1";
         svg.setContent(hex);
@@ -237,9 +231,6 @@ public class Controller implements Initializable {
     }
 
     public void updateScore(int add){
-        //String newScoreString = String.valueOf(newScore);
-        //score.setText(newScoreString);
-        //System.out.println("Got called.");
         String current = score.getText();
         int scoreVal = Integer.parseInt(current);
         scoreVal += add;
@@ -294,11 +285,11 @@ public class Controller implements Initializable {
         if (!correctWord.equals("")) {
             numberOfGuessedWords++;
             updateScore(correctWord.length());
-            guessedWords.setText(guessedWords.getText().concat(String.valueOf(numberOfGuessedWords) + ". " + correctWord + "\n"));
+            guessedWords.setText(guessedWords.getText().concat(numberOfGuessedWords + ". " + correctWord + "\n"));
         }
         int previousLevel = currentLevel;
         updateLevel();
-        System.out.println("Level is" + String.valueOf(currentLevel));
+        System.out.println("Level is" + currentLevel);
         currentWord.setText("");
         if (previousLevel != currentLevel) {
             int increase = currentLevel - previousLevel;
@@ -315,8 +306,7 @@ public class Controller implements Initializable {
     }
 
     private void updateLevel() {
-        int i = 0;
-        for (i = 0; i < scrs.size(); i++) {
+        for (int i=0; i < scrs.size(); i++) {
             int intScore = Integer.parseInt(scrs.get(i));
             if (intScore > Integer.parseInt(score.getText())) {
                 currentLevel = i;
@@ -325,16 +315,11 @@ public class Controller implements Initializable {
         }
     }
 
-    private void animatePointer(){
-
-    }
-
     private void beeAnimation(int increase){
         TranslateTransition trans = new TranslateTransition();
         trans.setNode(indicatorTri);
         trans.setDuration(Duration.millis(250));
         trans.setByY(30*increase);
-        //trans.setOnFinished(e -> {indicatorTri.setLayoutY(indicatorTri.getLayoutY()+30*increase);});
         trans.play();
         double xPos = indicatorTri.getLayoutX();
         double yPos = indicatorTri.getLayoutY();

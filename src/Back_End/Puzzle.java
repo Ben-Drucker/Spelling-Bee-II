@@ -7,9 +7,9 @@ import java.util.HashMap;
 public class Puzzle {
     public String req;
     public ArrayList<String> currentDisplay;
-    public ArrayList<String> extra = new ArrayList<>();
-    private ArrayList<String> guessedWords = new ArrayList<>();
-    private ArrayList<String> illegals = new ArrayList<>();
+    public ArrayList<String> extra;
+    private final ArrayList<String> guessedWords = new ArrayList<>();
+    private final ArrayList<String> illegals;
     public ArrayList<String> solution;
     public HashMap<String, ArrayList<String>> dictionary;
 
@@ -96,8 +96,8 @@ public class Puzzle {
 
     public ArrayList<String> getScores(){
         int numberChars = 0;
-        for(int i = 0; i<solution.size();i++){
-            numberChars += solution.get(i).length();
+        for (String s : solution) {
+            numberChars += s.length();
         }
         ArrayList<String> returnLs = new ArrayList<>();
         int genius = (int)(numberChars*0.6);
