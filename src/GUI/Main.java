@@ -11,8 +11,10 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+
 public class Main extends Application implements EventHandler<ActionEvent>{
 
+    public static String type;
 
     Button button = new Button("Click Me!!!");
 

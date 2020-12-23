@@ -1,5 +1,6 @@
 package GUI;
 
+import Back_End.TimeElapsed;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,27 +31,49 @@ public class InitialController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println(random);
         prog.setVisible(false);
-        random.setOnAction(event -> {
-            prog.setVisible(true);
-            Task<Void> task = new Task<Void>() {
-                @Override
-                protected Void call() throws Exception {
-                    gen();
-                    return null;
-                }
-            };
-            Thread background = new Thread(task);
-            task.setOnSucceeded(event1 -> {
-                this.window.setScene(mainScene);
-            });
-            background.start();
-        });
+                        random.setOnAction(event -> {
+                            prog.setVisible(true);
+                            Task<Void> task = new Task<Void>() {
+                                @Override
+                                protected Void call() throws Exception {
+                                    gen("random");
+                                    return null;
+                                }
+                            };
+                            Thread background = new Thread(task);
+                            task.setOnSucceeded(event1 -> {
+                                this.window.setScene(mainScene);
+                            });
+                            background.start();
+                        });
+
+
+
+                        pang.setOnAction(event -> {
+                            prog.setVisible(true);
+                            Task<Void> task = new Task<Void>() {
+                                @Override
+                                protected Void call() throws Exception {
+                                    gen("pang");
+                                    return null;
+                                }
+                            };
+                            Thread background = new Thread(task);
+                            task.setOnSucceeded(event1 -> {
+                                this.window.setScene(mainScene);
+                            });
+                            background.start();
+                        });
+
     }
 
-    public void gen(){
+    public void gen(String option){
         this.window = (Stage) random.getScene().getWindow();
         try {
+            Controller.type = option;
+            TimeElapsed tE = new TimeElapsed();
             this.root = FXMLLoader.load(getClass().getResource("GUI.fxml"));
+            tE.pp("mili", "*************");
         } catch (IOException e) {
             e.printStackTrace();
         }

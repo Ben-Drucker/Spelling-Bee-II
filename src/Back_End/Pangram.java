@@ -15,7 +15,7 @@ public class Pangram {
         this.reqLetter = reqLetter;
     }
 
-    public void getPangrams(){
+    public ArrayList<String> getPangrams(){
         ArrayList<String> searchArray = this.dictionary.get(this.reqLetter);
         for(String Word : searchArray){
             ArrayList<Character> uniqueChars = new ArrayList<>();
@@ -29,6 +29,7 @@ public class Pangram {
                 this.listOfPangrams.add(Word);
             }
         }
+        return this.listOfPangrams;
     }
 
     public void savePangrams(){

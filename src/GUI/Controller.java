@@ -24,7 +24,7 @@ public class Controller implements Initializable {
     public static Initialize init;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        init = new Initialize();
+        init = new Initialize(type);
         nonReq = init.gP.extra;
         req = init.gP.req;
         this.scrs = init.puzzle.getScores();
@@ -108,6 +108,7 @@ public class Controller implements Initializable {
     @FXML Text currentWord;
     ArrayList<String> nonReq;
     String req;
+    public static String type;// = Main.type;
     private final SVGPath svg = new SVGPath();
     private final String myStyHov = "-fx-background-color: #ffffbd#ffffbd; -fx-border-color: #999999#999999; -fx-border-width: 2.5";
     private final String myStyReg = "-fx-background-color: #ffff00#ffff00; -fx-border-color: #000000#000000;";
