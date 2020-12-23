@@ -3,6 +3,7 @@ package GUI;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,14 +18,12 @@ public class Main extends Application implements EventHandler<ActionEvent>{
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("GUI.fxml"));
+        Parent root2 = FXMLLoader.load(getClass().getResource("initialGUI.fxml"));
         primaryStage.setTitle("Spelling Bee II 🐝");
-        Scene scene = new Scene(root, 800, 500);
-        primaryStage.getIcons().add(new Image("file:bee.png"));
-        primaryStage.setScene(scene);
+        Scene splashScene = new Scene(root2, 600, 375);
+        primaryStage.setScene(splashScene);
         primaryStage.show();
     }
-
 
     public static void main(String[] args) {
         launch(args);

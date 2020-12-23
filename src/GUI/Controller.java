@@ -36,14 +36,14 @@ public class Controller implements Initializable {
         optional6.setText(nonReq.get(5).toUpperCase(Locale.ROOT));
         required.setText(req.toUpperCase(Locale.ROOT));
         beginner.setText("Beginner: 0");
-        goodStart.setText("Good Start: "+scrs.get(0));
-        movingUp.setText("Moving Up: "+scrs.get(1));
-        good.setText("Good: "+scrs.get(2));
-        solid.setText("Solid: "+scrs.get(3));
-        nice.setText("Nice: "+scrs.get(4));
-        amazing.setText("Amazing: "+scrs.get(5));
-        genius.setText("Genius: "+scrs.get(6));
-        unbelievable.setText("Unbelievable: "+scrs.get(7));
+        goodStart.setText("Good Start: "+scrs.get(1));
+        movingUp.setText("Moving Up: "+scrs.get(2));
+        good.setText("Good: "+scrs.get(3));
+        solid.setText("Solid: "+scrs.get(4));
+        nice.setText("Nice: "+scrs.get(5));
+        amazing.setText("Amazing: "+scrs.get(6));
+        genius.setText("Genius: "+scrs.get(7));
+        unbelievable.setText("Unbelievable: "+scrs.get(8));
         mainFrame.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.BACK_SPACE) {
                 bspacePress();
@@ -76,6 +76,9 @@ public class Controller implements Initializable {
         bspace.setPrefWidth(244);
         bspace.setStyle("-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width: 1.43");
         scrollPane.setContent(guessedWords);
+        for(String s : scrs){
+            intScrs.add(Integer.parseInt(s));
+        }
         //simulate.setOnAction(e -> {currentLevel++; beeAnimation(1);});
     }
     //@FXML Button simulate;
@@ -112,6 +115,7 @@ public class Controller implements Initializable {
     private int numberOfGuessedWords = 0;
     private int currentLevel = 0;
     ArrayList<String> scrs;
+    ArrayList<Integer> intScrs = new ArrayList<>();
     Image img = new Image("Bee_2.png");
     {
         String hex = "M 0 0 L 1 0 l 0.5 1 l -0.5 1 l -1 0 l -0.5 -1 l 0.5 -1M 0 0 L 1 0 l 0.5 1 l -0.5 1 l -1 0 l -0.5 -1 l 0.5 -1";
@@ -306,13 +310,13 @@ public class Controller implements Initializable {
     }
 
     private void updateLevel() {
-        for (int i=0; i < scrs.size(); i++) {
-            int intScore = Integer.parseInt(scrs.get(i));
-            if (intScore > Integer.parseInt(score.getText())) {
-                currentLevel = i;
-                break;
-            }
+        int level = currentLevel;
+        int checkLevel = intScrs.get(level+1);
+        while(checkLevel<Integer.parseInt(score.getText())){
+            checkLevel = intScrs.get(checkLevel+1);
+            level++;
         }
+        currentLevel = level;
     }
 
     private void beeAnimation(int increase){

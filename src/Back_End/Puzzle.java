@@ -101,7 +101,7 @@ public class Puzzle {
         }
         ArrayList<String> returnLs = new ArrayList<>();
         int genius = (int)(numberChars*0.6);
-        for(int i = 1; i<7; i++){
+        for(int i = 0; i<8; i++){
             String appendStr = String.valueOf((int)(((double)i/7)*(genius)));
             returnLs.add(appendStr);
         }
