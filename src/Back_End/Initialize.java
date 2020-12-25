@@ -1,5 +1,8 @@
 package Back_End;
 
+import javafx.stage.FileChooser;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,6 +13,7 @@ public class Initialize {
     public Initialize(String type){
         if(type.equals("random")) {
             gP = new GeneratePuzzle(6);
+            puzzle = new Puzzle(gP.req, gP.extra, "english3.txt");
         }
         else if(type.equals("pang")) {
             ArrayList<String> allLetters = new ArrayList<>(List.of("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r",
@@ -28,7 +32,13 @@ public class Initialize {
             }
             Collections.shuffle(extra);
             gP = new GeneratePuzzle(randomRequired, extra);
+            puzzle = new Puzzle(gP.req, gP.extra, "english3.txt");
         }
-        puzzle = new Puzzle(gP.req, gP.extra, "english3.txt");
+        else if(type.equals("load")){
+//            FileChooser fileChooser = new FileChooser();
+//            fileChooser.setTitle("\uD83D\uDCBE Choose Where to Open your Saved Game");
+//            File fp = fileChooser.showOpenDialog(window);
+//            puzzle = new Puzzle();
+        }
     }
 }

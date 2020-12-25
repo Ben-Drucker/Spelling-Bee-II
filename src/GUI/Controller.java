@@ -1,29 +1,35 @@
 package GUI;
 
 import Back_End.Initialize;
-import javafx.animation.FadeTransition;
-import javafx.animation.ScaleTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.*;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.sql.Time;
+import java.util.*;
 
 public class Controller implements Initializable {
-    public static Initialize init;
+    public Initialize init;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        quitDialog.setVisible(false);
         init = new Initialize(type);
         nonReq = init.gP.extra;
         req = init.gP.req;
@@ -79,9 +85,40 @@ public class Controller implements Initializable {
         for(String s : scrs){
             intScrs.add(Integer.parseInt(s));
         }
+        backToMMButton.setOnAction(e->{
+            GaussianBlur blur = new GaussianBlur(0);
+            mainView.setEffect(blur);
+            Timeline blurAnimation = new Timeline();
+            blurAnimation.setCycleCount(1);
+            blurAnimation.getKeyFrames().add(new KeyFrame(Duration.millis(50), new KeyValue (blur.radiusProperty(),20)));
+            blurAnimation.play();
+            quitDialog.setVisible(true);
+        });
+        saveGameButton.setOnAction(event -> {
+            save();
+        });
+        cancelDiag.setOnAction(event -> {
+            quitDialog.setVisible(false);
+            ((GaussianBlur)mainView.getEffect()).setRadius(0);
+        });
+        saveDiag.setOnAction(event -> {
+            boolean saved = save();
+            if(saved) {
+                quitDialog.setVisible(false);
+                ((GaussianBlur) mainView.getEffect()).setRadius(0);
+            }
+        });
+
         //simulate.setOnAction(e -> {currentLevel++; beeAnimation(1);});
     }
     //@FXML Button simulate;
+    @FXML AnchorPane mainView;
+    @FXML Button saveGameButton;
+    @FXML Button backToMMButton;
+    @FXML AnchorPane quitDialog;
+    @FXML Button cancelDiag;
+    @FXML Button okDiag;
+    @FXML Button saveDiag;
     @FXML ImageView imageView;
     @FXML Polygon indicatorTri;
     @FXML Text guessedWords;
@@ -106,6 +143,8 @@ public class Controller implements Initializable {
     @FXML Button bspace;
     @FXML Text score;
     @FXML Text currentWord;
+    private Stage window;
+    FileChooser fileChooser;
     ArrayList<String> nonReq;
     String req;
     public static String type;// = Main.type;
@@ -348,6 +387,47 @@ public class Controller implements Initializable {
         fade.setNode(imageView);
         scale.play();
         fade.play();
+    }
+
+    private boolean save(){
+        Date date = new Date();
+//        date.toInstant();
+//        Calendar.get(Calendar.DAY_OF_MONTH);
+        String nonReqDisplay = "";
+        for(String letter : nonReq){
+            nonReqDisplay += " "+letter;
+        }
+        this.window = (Stage) saveGameButton.getScene().getWindow();
+        fileChooser = new FileChooser();
+        fileChooser.setTitle("\uD83D\uDCBE Choose Where to Save your Game");
+        fileChooser.setInitialFileName("SBII game—"+req+nonReqDisplay+" ("+date+").spell2");
+        File fp = fileChooser.showSaveDialog(window);
+        if (fp != null) {
+            try {
+                FileWriter fW = new FileWriter(fp);
+                fW.write(req+"\n");
+                for(String letter : nonReq){
+                    fW.write(letter+"\n");
+                }
+                for(String letter : init.puzzle.illegals){
+                    fW.write(letter+"\n");
+                }
+                for(String word : init.puzzle.guessedWords){
+                    fW.write(word+"\n");
+                }
+                fW.write("End Guessed Words\n");
+                for(String word : init.puzzle.solution){
+                    fW.write(word+"\n");
+                }
+                fW.write("End Solution");
+                fW.close();
+                return true;
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+                System.out.println("There was an error.");
+            }
+        }
+        return false;
     }
 }
 

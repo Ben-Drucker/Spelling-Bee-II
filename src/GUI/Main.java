@@ -14,7 +14,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application implements EventHandler<ActionEvent>{
 
-    public static String type;
+    public static Scene splashScene;
+
 
     Button button = new Button("Click Me!!!");
 

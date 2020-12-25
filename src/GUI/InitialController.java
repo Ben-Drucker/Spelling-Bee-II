@@ -65,6 +65,24 @@ public class InitialController implements Initializable {
                             background.start();
                         });
 
+
+
+                        load.setOnAction(event -> {
+                            prog.setVisible(true);
+                            Task<Void> task = new Task<Void>() {
+                                @Override
+                                protected Void call() throws Exception {
+                                    gen("load");
+                                    return null;
+                                }
+                            };
+                            Thread background = new Thread(task);
+                            task.setOnSucceeded(event1 -> {
+                                this.window.setScene(mainScene);
+                            });
+                            background.start();
+                        });
+
     }
 
     public void gen(String option){

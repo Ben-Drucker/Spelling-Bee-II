@@ -163,5 +163,6 @@ Temporary Items
 Problems.md
 Main.run.xml
 *.iml
+*.spell2
 
 # End of https://www.toptal.com/developers/gitignore/api/java,macos,intellij

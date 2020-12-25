@@ -6,15 +6,22 @@ import java.util.HashMap;
 
 public class Puzzle {
     public String req;
-    public ArrayList<String> currentDisplay;
     public ArrayList<String> extra;
-    private final ArrayList<String> guessedWords = new ArrayList<>();
-    private final ArrayList<String> illegals;
+    public ArrayList<String> guessedWords;
+    public ArrayList<String> illegals;
     public ArrayList<String> solution;
     public HashMap<String, ArrayList<String>> dictionary;
 
+    public Puzzle(String req, ArrayList<String> extra, ArrayList<String> guessedWords, ArrayList<String> illegals, ArrayList<String> solution){
+        this.req = req;
+        this.extra = extra;
+        this.guessedWords = guessedWords;
+        this.illegals = illegals;
+        this.solution = solution;
+    }
 
     public Puzzle(String required, ArrayList<String> extra, String fileName){
+        guessedWords = new ArrayList<>();
         TimeElapsed t1 = new TimeElapsed();
         t1.start();
             GenerateHash gH = new GenerateHash(fileName);
