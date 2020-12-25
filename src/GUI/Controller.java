@@ -17,23 +17,30 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Time;
 import java.util.*;
 
 public class Controller implements Initializable {
     public Initialize init;
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
+    /**
+     * Main scene initialization options
+     * @param url
+     * @param resourceBundle
+     */
+    @Override public void initialize(URL url, ResourceBundle resourceBundle) {
         quitDialog.setVisible(false);
         init = new Initialize(type);
-        nonReq = init.gP.extra;
-        req = init.gP.req;
+        req = init.puzzle.req;
+        nonReq = init.puzzle.extra;
         this.scrs = init.puzzle.getScores();
+        if(type.equals("load")){
+            guessedWords.setText(init.guessedWordsDisplay);
+        }
         optional1.setText(nonReq.get(0).toUpperCase(Locale.ROOT));
         optional2.setText(nonReq.get(1).toUpperCase(Locale.ROOT));
         optional3.setText(nonReq.get(2).toUpperCase(Locale.ROOT));
@@ -108,10 +115,14 @@ public class Controller implements Initializable {
                 ((GaussianBlur) mainView.getEffect()).setRadius(0);
             }
         });
-
-        //simulate.setOnAction(e -> {currentLevel++; beeAnimation(1);});
     }
-    //@FXML Button simulate;
+
+
+
+
+    /**
+     * Buttons from FXML
+     */
     @FXML AnchorPane mainView;
     @FXML Button saveGameButton;
     @FXML Button backToMMButton;
@@ -143,10 +154,14 @@ public class Controller implements Initializable {
     @FXML Button bspace;
     @FXML Text score;
     @FXML Text currentWord;
+
+    /**
+     * Other Member Variables
+     */
     private Stage window;
-    FileChooser fileChooser;
-    ArrayList<String> nonReq;
-    String req;
+    private FileChooser fileChooser;
+    private ArrayList<String> nonReq;
+    private String req;
     public static String type;// = Main.type;
     private final SVGPath svg = new SVGPath();
     private final String myStyHov = "-fx-background-color: #ffffbd#ffffbd; -fx-border-color: #999999#999999; -fx-border-width: 2.5";
@@ -154,9 +169,9 @@ public class Controller implements Initializable {
     private final String myStyClk = "-fx-background-color: #ffffbd#ffffbd; -fx-border-color: #999999#999999; -fx-border-width: 5";
     private int numberOfGuessedWords = 0;
     private int currentLevel = 0;
-    ArrayList<String> scrs;
-    ArrayList<Integer> intScrs = new ArrayList<>();
-    Image img = new Image("Bee_2.png");
+    private ArrayList<String> scrs;
+    private ArrayList<Integer> intScrs = new ArrayList<>();
+    private Image img = new Image("Bee_2.png");
     {
         String hex = "M 0 0 L 1 0 l 0.5 1 l -0.5 1 l -1 0 l -0.5 -1 l 0.5 -1M 0 0 L 1 0 l 0.5 1 l -0.5 1 l -1 0 l -0.5 -1 l 0.5 -1";
         svg.setContent(hex);

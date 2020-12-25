@@ -13,4 +13,10 @@ class InitializeTest {
         System.out.println("done");
     }
 
+    @Test
+    public void testSave(){
+        Initialize init = new Initialize("load");
+        System.out.println("done");
+    }
+
 }

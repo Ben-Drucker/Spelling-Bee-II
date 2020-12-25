@@ -3,13 +3,21 @@ package Back_End;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 public class Initialize {
     public GeneratePuzzle gP;
     public Puzzle puzzle;
+    public String guessedWordsDisplay = "";
+
+
+
+
+
     public Initialize(String type){
         if(type.equals("random")) {
             gP = new GeneratePuzzle(6);
@@ -35,10 +43,36 @@ public class Initialize {
             puzzle = new Puzzle(gP.req, gP.extra, "english3.txt");
         }
         else if(type.equals("load")){
-//            FileChooser fileChooser = new FileChooser();
-//            fileChooser.setTitle("\uD83D\uDCBE Choose Where to Open your Saved Game");
-//            File fp = fileChooser.showOpenDialog(window);
-//            puzzle = new Puzzle();
+            File fp = new File("/Users/bendrucker/Documents/SBII game—i y l n g u c (Wed Dec 23 21:54:38 CST 2020).spell2");
+            Scanner scanner = null;
+            try{
+                scanner = new Scanner(fp);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+            String req = scanner.nextLine();
+            ArrayList<String> extra = new ArrayList<>();
+            for(int i = 0; i<6; i++){
+                extra.add(scanner.nextLine());
+            }
+            ArrayList<String> illegals = new ArrayList<>();
+            for(int i = 0; i<19; i++){
+                illegals.add(scanner.nextLine());
+            }
+            ArrayList<String> guessedWords = new ArrayList<>();
+            String currentWord = scanner.nextLine();
+            while(!currentWord.equals("End Guessed Words")){
+                guessedWords.add(currentWord);
+                guessedWordsDisplay += currentWord + "\n";
+                currentWord = scanner.nextLine();
+            }
+            guessedWordsDisplay = guessedWordsDisplay.stripTrailing();
+            ArrayList<String> solution = new ArrayList<>();
+            while(!currentWord.equals("End Solution")){
+                currentWord = scanner.nextLine();
+                solution.add(currentWord);
+            }
+            puzzle = new Puzzle(req, extra, guessedWords, illegals, solution);
         }
     }
 }
