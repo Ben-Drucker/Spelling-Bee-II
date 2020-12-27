@@ -16,6 +16,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.junit.experimental.theories.Theory;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -67,6 +68,15 @@ public class Controller implements Initializable {
                 } catch (InterruptedException interruptedException) {
                     interruptedException.printStackTrace();
                 }
+                this.currentWord.setText("");
+//                for(int i=0; i<init.puzzle.solution.size()-1; i++){ //Diagnostic only
+//                    currentWord.setText(init.puzzle.solution.get(i));
+//                    try {
+//                        validateWord();
+//                    } catch (InterruptedException interruptedException) {
+//                        interruptedException.printStackTrace();
+//                    }
+//                }
             }
         });
         mainFrame.setOnKeyReleased(e -> {
@@ -115,6 +125,7 @@ public class Controller implements Initializable {
                 ((GaussianBlur) mainView.getEffect()).setRadius(0);
             }
         });
+        System.out.println(init.puzzle.solution);
     }
 
 
@@ -154,6 +165,7 @@ public class Controller implements Initializable {
     @FXML Button bspace;
     @FXML Text score;
     @FXML Text currentWord;
+
 
     /**
      * Other Member Variables
@@ -338,21 +350,19 @@ public class Controller implements Initializable {
         try {
             correctWord = init.puzzle.GuessWord(word);
             System.out.println("Good Word!");
-        } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
-        }
-        if (!correctWord.equals("")) {
             numberOfGuessedWords++;
             updateScore(correctWord.length());
             guessedWords.setText(guessedWords.getText().concat(numberOfGuessedWords + ". " + correctWord + "\n"));
-        }
-        int previousLevel = currentLevel;
-        updateLevel();
-        System.out.println("Level is" + currentLevel);
-        currentWord.setText("");
-        if (previousLevel != currentLevel) {
-            int increase = currentLevel - previousLevel;
-            beeAnimation(increase);
+            int previousLevel = currentLevel;
+            updateLevel();
+            System.out.println("Level is" + currentLevel);
+            currentWord.setText("");
+            if (previousLevel != currentLevel) {
+                int increase = currentLevel - previousLevel;
+                beeAnimation(increase);
+            }
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -365,13 +375,17 @@ public class Controller implements Initializable {
     }
 
     private void updateLevel() {
-        int level = currentLevel;
-        int checkLevel = intScrs.get(level+1);
-        while(checkLevel<Integer.parseInt(score.getText())){
-            checkLevel = intScrs.get(checkLevel+1);
-            level++;
+        int currentScore = Integer.parseInt(score.getText());
+        for(int level = currentLevel; level < 9; level++){
+            if(currentScore < this.intScrs.get(level)){
+                this.currentLevel = level - 1;
+                break;
+            }
+            else if(currentScore == this.intScrs.get(8)){
+                this.currentLevel = 8;
+                break;
+            }
         }
-        currentLevel = level;
     }
 
     private void beeAnimation(int increase){
@@ -402,6 +416,8 @@ public class Controller implements Initializable {
         fade.setNode(imageView);
         scale.play();
         fade.play();
+        imageView.setScaleX(1);
+        imageView.setScaleY(1);
     }
 
     private boolean save(){
@@ -412,6 +428,7 @@ public class Controller implements Initializable {
         for(String letter : nonReq){
             nonReqDisplay += " "+letter;
         }
+        this.mainView.setEffect(new GaussianBlur(20));
         this.window = (Stage) saveGameButton.getScene().getWindow();
         fileChooser = new FileChooser();
         fileChooser.setTitle("\uD83D\uDCBE Choose Where to Save your Game");
@@ -436,12 +453,14 @@ public class Controller implements Initializable {
                 }
                 fW.write("End Solution");
                 fW.close();
+                ((GaussianBlur) this.mainView.getEffect()).setRadius(0);
                 return true;
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
                 System.out.println("There was an error.");
             }
         }
+        ((GaussianBlur) this.mainView.getEffect()).setRadius(0);
         return false;
     }
 }
