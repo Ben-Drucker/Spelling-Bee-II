@@ -1,6 +1,9 @@
-package GUI;
+package main.GUI
 
-import Back_End.Initialize;
+/**
+ * JavaFX imports
+ */
+import main.Back_End.Initialize;
 import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,8 +19,10 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.junit.experimental.theories.Theory;
 
+/**
+ * Java Imports
+ */
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -27,20 +32,24 @@ import java.util.*;
 public class Controller implements Initializable {
     public Initialize init;
 
-
     /**
      * Main scene initialization options
      * @param url
      * @param resourceBundle
      */
     @Override public void initialize(URL url, ResourceBundle resourceBundle) {
+        guessedWords.setText("");
         quitDialog.setVisible(false);
         init = new Initialize(type);
         req = init.puzzle.req;
         nonReq = init.puzzle.extra;
         this.scrs = init.puzzle.getScores();
         if(type.equals("load")){
-            guessedWords.setText(init.guessedWordsDisplay);
+            numberOfGuessedWords = init.puzzle.loadNumberGuessed;
+            guessedWords.setText(init.guessedWordsDisplay+"\n");
+            currentLevel = init.puzzle.loadLevel;
+            indicatorTri.setLayoutY(130 + currentLevel*30);
+            score.setText(String.valueOf(init.puzzle.loadScore));
         }
         optional1.setText(nonReq.get(0).toUpperCase(Locale.ROOT));
         optional2.setText(nonReq.get(1).toUpperCase(Locale.ROOT));
@@ -58,6 +67,7 @@ public class Controller implements Initializable {
         amazing.setText("Amazing: "+scrs.get(6));
         genius.setText("Genius: "+scrs.get(7));
         unbelievable.setText("Unbelievable: "+scrs.get(8));
+        ArrayList<KeyCode> relevantKeyCodes = new ArrayList<>(Arrays.asList(KeyCode.A, KeyCode.B));
         mainFrame.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.BACK_SPACE) {
                 bspacePress();
@@ -69,14 +79,6 @@ public class Controller implements Initializable {
                     interruptedException.printStackTrace();
                 }
                 this.currentWord.setText("");
-//                for(int i=0; i<init.puzzle.solution.size()-1; i++){ //Diagnostic only
-//                    currentWord.setText(init.puzzle.solution.get(i));
-//                    try {
-//                        validateWord();
-//                    } catch (InterruptedException interruptedException) {
-//                        interruptedException.printStackTrace();
-//                    }
-//                }
             }
         });
         mainFrame.setOnKeyReleased(e -> {
@@ -128,9 +130,6 @@ public class Controller implements Initializable {
         System.out.println(init.puzzle.solution);
     }
 
-
-
-
     /**
      * Buttons from FXML
      */
@@ -166,7 +165,6 @@ public class Controller implements Initializable {
     @FXML Text score;
     @FXML Text currentWord;
 
-
     /**
      * Other Member Variables
      */
@@ -174,7 +172,7 @@ public class Controller implements Initializable {
     private FileChooser fileChooser;
     private ArrayList<String> nonReq;
     private String req;
-    public static String type;// = Main.type;
+    public static String type;
     private final SVGPath svg = new SVGPath();
     private final String myStyHov = "-fx-background-color: #ffffbd#ffffbd; -fx-border-color: #999999#999999; -fx-border-width: 2.5";
     private final String myStyReg = "-fx-background-color: #ffff00#ffff00; -fx-border-color: #000000#000000;";
@@ -352,7 +350,10 @@ public class Controller implements Initializable {
             System.out.println("Good Word!");
             numberOfGuessedWords++;
             updateScore(correctWord.length());
-            guessedWords.setText(guessedWords.getText().concat(numberOfGuessedWords + ". " + correctWord + "\n"));
+            if(numberOfGuessedWords>1){
+                guessedWords.setText(guessedWords.getText()+"\n");
+            }
+            guessedWords.setText(guessedWords.getText().concat(numberOfGuessedWords + ". " + correctWord));
             int previousLevel = currentLevel;
             updateLevel();
             System.out.println("Level is" + currentLevel);
@@ -444,14 +445,15 @@ public class Controller implements Initializable {
                 for(String letter : init.puzzle.illegals){
                     fW.write(letter+"\n");
                 }
-                for(String word : init.puzzle.guessedWords){
-                    fW.write(word+"\n");
-                }
+                fW.write(guessedWords.getText());
                 fW.write("End Guessed Words\n");
                 for(String word : init.puzzle.solution){
                     fW.write(word+"\n");
                 }
                 fW.write("End Solution");
+                fW.write("\n"+String.valueOf(currentLevel));
+                fW.write("\n"+String.valueOf(score.getText()));
+                fW.write("\n"+String.valueOf(numberOfGuessedWords));
                 fW.close();
                 ((GaussianBlur) this.mainView.getEffect()).setRadius(0);
                 return true;

@@ -1,6 +1,4 @@
-package Back_End;
-
-import javafx.stage.FileChooser;
+package main.Back_End;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,10 +11,7 @@ public class Initialize {
     public GeneratePuzzle gP;
     public Puzzle puzzle;
     public String guessedWordsDisplay = "";
-
-
-
-
+    public static File loadFileName;
 
     public Initialize(String type){
         if(type.equals("random")) {
@@ -43,7 +38,7 @@ public class Initialize {
             puzzle = new Puzzle(gP.req, gP.extra, "english3.txt");
         }
         else if(type.equals("load")){
-            File fp = new File("/Users/bendrucker/Documents/SBII game—i y l n g u c (Wed Dec 23 21:54:38 CST 2020).spell2");
+            File fp = Initialize.loadFileName;
             Scanner scanner = null;
             try{
                 scanner = new Scanner(fp);
@@ -72,7 +67,10 @@ public class Initialize {
                 currentWord = scanner.nextLine();
                 solution.add(currentWord);
             }
-            puzzle = new Puzzle(req, extra, guessedWords, illegals, solution);
+            int loadLevel = Integer.parseInt(scanner.nextLine());
+            int loadScore = Integer.parseInt(scanner.nextLine());
+            int loadNumberGuessed = Integer.parseInt(scanner.nextLine());
+            puzzle = new Puzzle(req, extra, guessedWords, illegals, solution, loadLevel, loadScore, loadNumberGuessed);
         }
     }
 }

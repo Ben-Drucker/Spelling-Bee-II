@@ -1,4 +1,4 @@
-package Back_End;
+package main.Back_End;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,13 +11,19 @@ public class Puzzle {
     public ArrayList<String> illegals;
     public ArrayList<String> solution;
     public HashMap<String, ArrayList<String>> dictionary;
+    public int loadLevel;
+    public int loadScore;
+    public int loadNumberGuessed;
 
-    public Puzzle(String req, ArrayList<String> extra, ArrayList<String> guessedWords, ArrayList<String> illegals, ArrayList<String> solution){
+    public Puzzle(String req, ArrayList<String> extra, ArrayList<String> guessedWords, ArrayList<String> illegals, ArrayList<String> solution, int loadLevel, int loadScore, int loadNumberGuessed){
         this.req = req;
         this.extra = extra;
         this.guessedWords = guessedWords;
         this.illegals = illegals;
         this.solution = solution;
+        this.loadLevel = loadLevel;
+        this.loadScore = loadScore;
+        this.loadNumberGuessed = loadNumberGuessed;
     }
 
     public Puzzle(String required, ArrayList<String> extra, String fileName){
@@ -57,8 +63,8 @@ public class Puzzle {
         }
 
         //invalid if word is not in dictionary
-        if(!dictionary.get(req).contains(guess)){
-            throw new RuntimeException("Word not in dictionary");
+        if(!solution.contains(guess)){
+            throw new RuntimeException("Word not in dictionary/solution");
         }
         goodWord(guess);
         return guess;

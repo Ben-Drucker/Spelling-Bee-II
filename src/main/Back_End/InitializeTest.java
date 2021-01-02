@@ -1,9 +1,7 @@
-package Back_End;
+package main.Back_End;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Test;
 
 class InitializeTest {
 

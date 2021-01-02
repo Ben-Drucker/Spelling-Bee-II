@@ -166,3 +166,8 @@ Main.run.xml
 *.spell2
 
 # End of https://www.toptal.com/developers/gitignore/api/java,macos,intellij
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build

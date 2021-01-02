@@ -1,4 +1,4 @@
-package Back_End;
+package main.Back_End;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,13 +27,13 @@ public class GenerateHash {
     public GenerateHash(String filename) {
         this.filename = filename;
         File checkFile = new File(
-                "src/Back_End/data/HashData-" + filename + ".ser");
+                "src/main.Back_End/data/HashData-" + filename + ".ser");
         boolean exists = checkFile.exists();
         if (exists) {
             try{
                 FileInputStream fi;
                 ObjectInputStream oi;
-                fi = new FileInputStream("src/Back_End/data/HashData-" + filename + ".ser");
+                fi = new FileInputStream("src/main.Back_End/data/HashData-" + filename + ".ser");
                 oi = new ObjectInputStream(fi);
                 dictionary = (HashMap<String, ArrayList<String>>) oi.readObject();
                 oi.close();
@@ -53,7 +53,7 @@ public class GenerateHash {
     
     private void buildUpHash(){
         try {
-            File fp = new File("src/Back_End/data/english3.txt");
+            File fp = new File("src/main.Back_End/data/english3.txt");
 			Scanner scanner = new Scanner(fp);
 			while (scanner.hasNextLine()) {
                 String word = scanner.nextLine();
@@ -71,7 +71,7 @@ public class GenerateHash {
     
     public void saveData(){
         try{
-            FileOutputStream f = new FileOutputStream("src/Back_End/data/HashData-"+filename+".ser");
+            FileOutputStream f = new FileOutputStream("src/main.Back_End/data/HashData-"+filename+".ser");
             ObjectOutputStream o = new ObjectOutputStream(f);
             o.writeObject(dictionary);
             o.close();
