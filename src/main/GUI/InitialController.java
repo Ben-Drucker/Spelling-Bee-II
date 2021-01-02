@@ -92,7 +92,7 @@ public class InitialController implements Initializable {
         try {
             Controller.type = option;
             TimeElapsed tE = new TimeElapsed();
-            this.root = FXMLLoader.load(getClass().getResource("src/main.GUI/main.GUI.fxml"));
+            this.root = FXMLLoader.load(getClass().getResource("GUI.fxml"));
             tE.pp("mili", "*************");
         } catch (IOException e) {
             e.printStackTrace();

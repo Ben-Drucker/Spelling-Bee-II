@@ -65,7 +65,9 @@ public class Initialize {
             ArrayList<String> solution = new ArrayList<>();
             while(!currentWord.equals("End Solution")){
                 currentWord = scanner.nextLine();
-                solution.add(currentWord);
+                if(!currentWord.equals("End Solution")) {
+                    solution.add(currentWord);
+                }
             }
             int loadLevel = Integer.parseInt(scanner.nextLine());
             int loadScore = Integer.parseInt(scanner.nextLine());

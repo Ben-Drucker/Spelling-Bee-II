@@ -53,7 +53,7 @@ public class GenerateHash {
     
     private void buildUpHash(){
         try {
-            File fp = new File("src/main.Back_End/data/english3.txt");
+            File fp = new File("src/main/Back_End/data/english3.txt");
 			Scanner scanner = new Scanner(fp);
 			while (scanner.hasNextLine()) {
                 String word = scanner.nextLine();

@@ -1,4 +1,4 @@
-package main.GUI
+package main.GUI;
 
 /**
  * JavaFX imports
@@ -181,7 +181,7 @@ public class Controller implements Initializable {
     private int currentLevel = 0;
     private ArrayList<String> scrs;
     private ArrayList<Integer> intScrs = new ArrayList<>();
-    private Image img = new Image("Bee_2.png");
+    private Image img = new Image("main/GUI/Bee_2.png");
     {
         String hex = "M 0 0 L 1 0 l 0.5 1 l -0.5 1 l -1 0 l -0.5 -1 l 0.5 -1M 0 0 L 1 0 l 0.5 1 l -0.5 1 l -1 0 l -0.5 -1 l 0.5 -1";
         svg.setContent(hex);
@@ -445,7 +445,7 @@ public class Controller implements Initializable {
                 for(String letter : init.puzzle.illegals){
                     fW.write(letter+"\n");
                 }
-                fW.write(guessedWords.getText());
+                fW.write(guessedWords.getText()+"\n");
                 fW.write("End Guessed Words\n");
                 for(String word : init.puzzle.solution){
                     fW.write(word+"\n");

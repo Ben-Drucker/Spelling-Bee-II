@@ -171,3 +171,6 @@ Main.run.xml
 
 # Ignore Gradle build output directory
 build
+/src/main/Back_End/TestRE.java
+Main.java
+Main.java

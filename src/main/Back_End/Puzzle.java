@@ -32,16 +32,11 @@ public class Puzzle {
         t1.start();
             GenerateHash gH = new GenerateHash(fileName);
             dictionary = gH.dictionary;
-        t1.stop();
-        t1.pp("sec", "building up dictionary/hash");
         req = required;
         this.extra = extra;
         TimeElapsed t2 = new TimeElapsed();
-        t2.start();
             illegals = generateIllegals(extra);
             solution = getSolution();
-        t2.stop();
-        t2.pp("sec", "generating solution");
     }
 
     public String GuessWord(String guess){

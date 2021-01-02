@@ -43,7 +43,7 @@
             </HBox>
             <ImageView fitHeight="51.0" fitWidth="68.0" layoutX="256.0" layoutY="91.0" opacity="0.74" preserveRatio="true">
                <image>
-                  <Image url="@../Bee_2.png" />
+                  <Image url="@/main/GUI/Bee_2.png" />
                </image>
             </ImageView>
             <Button fx:id="util" layoutX="531.0" layoutY="334.0" mnemonicParsing="false" text="Utility" />
