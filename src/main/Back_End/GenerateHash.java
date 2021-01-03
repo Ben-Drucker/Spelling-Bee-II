@@ -27,13 +27,13 @@ public class GenerateHash {
     public GenerateHash(String filename) {
         this.filename = filename;
         File checkFile = new File(
-                "src/main.Back_End/data/HashData-" + filename + ".ser");
+                "src/main/Back_End/data/HashData-" + filename + ".ser");
         boolean exists = checkFile.exists();
         if (exists) {
             try{
                 FileInputStream fi;
                 ObjectInputStream oi;
-                fi = new FileInputStream("src/main.Back_End/data/HashData-" + filename + ".ser");
+                fi = new FileInputStream("src/main/Back_End/data/HashData-" + filename + ".ser");
                 oi = new ObjectInputStream(fi);
                 dictionary = (HashMap<String, ArrayList<String>>) oi.readObject();
                 oi.close();

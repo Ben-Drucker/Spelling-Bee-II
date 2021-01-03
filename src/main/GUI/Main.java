@@ -15,7 +15,6 @@ public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
         Parent root2 = FXMLLoader.load(getClass().getResource("InitialGUI.fxml"));
         primaryStage.setTitle("Spelling Bee II 🐝");
         Scene splashScene = new Scene(root2, 600, 375);

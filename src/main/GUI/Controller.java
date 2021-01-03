@@ -342,12 +342,10 @@ public class Controller implements Initializable {
     }
 
     public void validateWord() throws InterruptedException {
-        System.out.println("In validateWord...");
         String word = currentWord.getText().toLowerCase(Locale.ROOT);
         String correctWord = "";
         try {
             correctWord = init.puzzle.GuessWord(word);
-            System.out.println("Good Word!");
             numberOfGuessedWords++;
             updateScore(correctWord.length());
             if(numberOfGuessedWords>1){
@@ -356,7 +354,6 @@ public class Controller implements Initializable {
             guessedWords.setText(guessedWords.getText().concat(numberOfGuessedWords + ". " + correctWord));
             int previousLevel = currentLevel;
             updateLevel();
-            System.out.println("Level is" + currentLevel);
             currentWord.setText("");
             if (previousLevel != currentLevel) {
                 int increase = currentLevel - previousLevel;
@@ -459,7 +456,6 @@ public class Controller implements Initializable {
                 return true;
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
-                System.out.println("There was an error.");
             }
         }
         ((GaussianBlur) this.mainView.getEffect()).setRadius(0);

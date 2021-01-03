@@ -1,7 +1,6 @@
 package main.GUI;
 
 import main.Back_End.Initialize;
-import main.Back_End.TimeElapsed;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,7 +31,6 @@ public class InitialController implements Initializable {
 
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println(random);
         prog.setVisible(false);
         random.setOnAction(event -> {
             prog.setVisible(true);
@@ -91,9 +89,7 @@ public class InitialController implements Initializable {
         this.window = (Stage) random.getScene().getWindow();
         try {
             Controller.type = option;
-            TimeElapsed tE = new TimeElapsed();
             this.root = FXMLLoader.load(getClass().getResource("GUI.fxml"));
-            tE.pp("mili", "*************");
         } catch (IOException e) {
             e.printStackTrace();
         }
