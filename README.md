@@ -7,3 +7,5 @@ The following are screenshots of the running program<sup>*</sup>.
   
  ![](SB_Screenshots/Screenshot_1.png)
  ![](SB_Screenshots/Screenshot_2.png)
+ 
+ <sup>*</sup>The "ok" option on the second screenshot has yet to be implemented.
