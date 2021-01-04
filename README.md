@@ -5,4 +5,4 @@ Can be run in JetBrains Intellij IDE. The [Java Runtime Environment](https://www
 
 The following are screenshots of the running program<sup>*<\sup>.
   
- ![]("SB Screenshots/Screenshot 1.png")
+ ![](SB_Screenshots/Screenshot_1.png)
